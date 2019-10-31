@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {callBackendAPI} from './api/frontEndApi.js';
+import * as api from './api/frontEndApi.js';
 
 class App extends Component {
 state = {
@@ -10,7 +10,7 @@ state = {
 
   componentDidMount() {
       // Call our fetch function below once the component mounts
-    callBackendAPI()
+    api.callBackendAPI()
       .then(res => this.setState({ data: res.express }))
       .catch(err => console.log(err));
   }
