@@ -26,6 +26,28 @@ const App: React.FC = () => {
       },
       createdAt: new Date(),
     },
+    {
+      _id: 3,
+      text:
+        'python hello',
+      user: {
+        _id: 1,
+        name: 'me',
+        avatar: '/me.jpg',
+      },
+      createdAt: new Date(),
+    },
+    {
+      _id: 4,
+      text:
+        'Error',
+      user: {
+        _id: 3,
+        name: 'termErr',
+        avatar: '/sign-error-icon.png',
+      },
+      createdAt: new Date(),
+    }
   ])
   const onSend = (newMsg: IMessage[]) => setMessages([...messages, ...newMsg])
   const user: User = { _id: 1, name: 'me' }
