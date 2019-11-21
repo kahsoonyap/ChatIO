@@ -8,7 +8,7 @@ const App: React.FC = () => {
     {
       _id: 1,
       text:
-        'python3 helloWorld.py',
+        'Welcome!',
       user: {
         _id: 1,
         name: 'me',
