@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { GiftedChat, IMessage, User } from 'react-native-gifted-chat'
+import { GiftedChat, IMessage, User, Bubble } from 'react-native-gifted-chat'
 import { View, Dimensions } from 'react-native'
 import './App.css'
 
@@ -51,11 +51,37 @@ const App: React.FC = () => {
   ])
   const onSend = (newMsg: IMessage[]) => setMessages([...messages, ...newMsg])
   const user: User = { _id: 1, name: 'me' }
-  const inverted = false
+  //const systemUser = { _id: 2, name: "term"}
+  //const errUser = {_id: 3, name: "termErr"}
   const { width, height } = Dimensions.get('window')
+  // @ts-ignore
+  const renderBubble = (props) => {
+    let un: string = props.currentMessage.user.name
+    let color: string = '#2ecc71'
+    if (un === "termErr") {
+      color = "#ffe5e5"
+    }
+    return (
+      <Bubble
+        {...props}
+        // @ts-ignore
+        wrapperStyle={{
+          left: {
+            backgroundColor: color
+          }
+        }}
+      />
+    )
+  }
   return (
     <View style={{ width, height }}>
-      <GiftedChat {...{ messages, onSend, user, inverted }} />
+      <GiftedChat 
+        messages={messages}
+        onSend={onSend}
+        user={user}
+        renderBubble={renderBubble}
+        inverted={false}
+      />
     </View>
   )
 }
