@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "dev": "concurrently --kill-others \"npm run start\" \"(cd ../frontend && npm run start)\"" 
+    "dev": "concurrently --kill-others \"npm run start\" \"(cd ../frontend && npm run start)\""
   },
   "keywords": [],
   "author": "",

@@ -19,7 +19,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
-    "dev": "concurrently --kill-others \"npm run start\" \"(cd ../backend && npm run start)\"" 
+    "dev": "concurrently --kill-others \"npm run start\" \"(cd ../backend && npm run start)\""
   },
   "eslintConfig": {
     "extends": "react-app"
