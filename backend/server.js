@@ -3,9 +3,10 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const router = express.Router();
+var stream   = require('stream');
 const PORT = 4000;
 
-const { exec } = require("child_process");
+const cp = require("child_process");
 const { spawn } = require("child_process");
 
 const { onExit } = require("@rauschma/stringio");
@@ -14,6 +15,13 @@ const file = "";
 
 app.use(cors());
 app.use(bodyParser.json());
+
+function runScript(){
+  return cp.spawn("python", ['-u',`helloworld.py`]);
+}
+
+let spawnChild;
+
 
 app.listen(PORT, function() {
   console.log("Server is running on Port: " + PORT);
@@ -25,19 +33,28 @@ app.get("/express_backend", (req, res) => {
 });
 
 app.get("/startup", async (req, res) => {
-  console.log("startup");
   try {
-    s = spawn("python", [`${file}`], {
-      stdio: [process.stdin, process.stdout, process.stderr]
+    spawnChild = runScript();
+    
+    spawnChild.stdout.once('data', function(data) { 
+      console.log(String.fromCharCode.apply(null,data))
+      res.send(data.toString());
     });
-    // render front here
-    await onExit(s);
+
   } catch (e) {
     console.log(e);
   }
 });
 
-app.post("/send_message", async (req, res) => {
-  console.log("send_message");
-  // send message to terminal
+app.get("/send_message", async (req, res) => {
+  try {
+    spawnChild.stdin.write("hello\n");
+    spawnChild.stdout.once('data', function(data) { 
+      console.log(String.fromCharCode.apply(null,data))
+      res.send(data.toString());
+    });
+  } catch (e) {
+    console.log(e);
+    res.send("Couldnt send it my dude")
+  }
 });
