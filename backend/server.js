@@ -40,6 +40,7 @@ app.get("/startup", async (req, res) => {
     spawnChild.stdout.once('data', function(data) { 
       console.log(String.fromCharCode.apply(null,data))
       res.send(data.toString());
+      death = false;
     });
 
     spawnChild.stdout.once('end', function() { 
@@ -51,10 +52,11 @@ app.get("/startup", async (req, res) => {
   }
 });
 
-app.get("/send_message", async (req, res) => {
+app.post("/send_message", async (req, res) => {
   try {
     if (!death){
-      spawnChild.stdin.write("hello\n");
+      spawnChild.stdin.write(req.body.send.text+"\n");      
+
       spawnChild.stdout.once('data', function(data) { 
         console.log(String.fromCharCode.apply(null,data))
         res.send(data.toString());
