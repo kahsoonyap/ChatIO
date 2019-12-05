@@ -21,6 +21,7 @@ function runScript(){
 }
 
 let spawnChild;
+let death = false
 
 
 app.listen(PORT, function() {
@@ -41,6 +42,10 @@ app.get("/startup", async (req, res) => {
       res.send(data.toString());
     });
 
+    spawnChild.stdout.once('end', function() { 
+      death = true;
+    });
+
   } catch (e) {
     console.log(e);
   }
@@ -48,11 +53,16 @@ app.get("/startup", async (req, res) => {
 
 app.get("/send_message", async (req, res) => {
   try {
-    spawnChild.stdin.write("hello\n");
-    spawnChild.stdout.once('data', function(data) { 
-      console.log(String.fromCharCode.apply(null,data))
-      res.send(data.toString());
-    });
+    if (!death){
+      spawnChild.stdin.write("hello\n");
+      spawnChild.stdout.once('data', function(data) { 
+        console.log(String.fromCharCode.apply(null,data))
+        res.send(data.toString());
+      });
+    }
+    else{
+      res.send({process:"false"});
+    }
   } catch (e) {
     console.log(e);
     res.send("Couldnt send it my dude")
