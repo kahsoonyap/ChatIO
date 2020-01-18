@@ -1,7 +1,12 @@
 const express = require("express");
+const bodyParser = require("body-parser")
 const http = require("http");
 const socketIo = require("socket.io");
 const axios = require("axios");
+const cp = require("child_process");
+const { spawn } = require("child_process");
+let spawnChild;
+
 
 const PORT = process.env.PORT||4001;
 
@@ -12,17 +17,55 @@ router.get("/",(req,res)=>{
   res.send({response: "Alive"}).status(200);
 });
 
+router.post("/send_message",(req,res)=>{
+  try {
+    console.log(req.body)
+    spawnChild.stdin.write(req.body.send+"\n"); 
+    res.send({process:"false"});  
+  } catch (e) {
+    console.log(e);
+    res.send("Couldnt send it my dude")
+  }
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(router);
+
+function runScript(){
+  return cp.spawn("python", ['-u',`helloworld.py`]);
+}
+
 const server = http.createServer(app);
 const io = socketIo(server);
 
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+let interval;
+io.on("connection", socket => {
+  console.log("New client connected");
+  spawnChild = runScript();
+  if (interval) {
+    clearInterval(interval);
+  }
+  spawnChild.stdout.on('data', function(data) { 
+    socket.emit("FromAPI", data.toString());
+  });
+  spawnChild.on('end', function(data) { 
+    console.log("sup")
+  });
+  spawnChild.stderr.setEncoding('utf-8');
+  spawnChild.stderr.on('data', function () {
+    socket.emit('process_data', data);
+  });
+
+  // interval = setInterval(() => getApiAndEmit(socket), 10000);
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+    spawnChild.kill('SIGINT')
   });
 });
 
 server.listen(PORT);
+
 
 // const cp = require("child_process");
 // const { spawn } = require("child_process");
@@ -31,9 +74,6 @@ server.listen(PORT);
 // app.use(bodyParser.json());
 
 // var stream   = require('stream');
-// function runScript(){
-//   return cp.spawn("python", ['-u',`helloworld.py`]);
-// }
 
 // app.listen(PORT, function() {
 //   console.log("Server is running on Port: " + PORT);
@@ -67,11 +107,6 @@ server.listen(PORT);
 //   try {
 //     if (!death){
 //       spawnChild.stdin.write(req.body.send.text+"\n");      
-
-//       spawnChild.stdout.once('data', function(data) { 
-//         console.log(String.fromCharCode.apply(null,data))
-//         res.send(data.toString());
-//       });
 //     }
 //     else{
 //       res.send({process:"false"});
@@ -82,3 +117,4 @@ server.listen(PORT);
 //   }
 // });
 
+module.exports = router;
