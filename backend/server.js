@@ -11,12 +11,12 @@ let spawnChild;
 const PORT = process.env.PORT||4001;
 
 const app = express();
+const router = express.Router();
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(router);
-
-const router = express.Router();
 
 router.get("/",(req,res)=>{
   res.send({response: "Alive"}).status(200);
