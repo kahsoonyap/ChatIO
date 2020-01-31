@@ -4,12 +4,18 @@ const http = require("http");
 const socketIo = require("socket.io");
 const cp = require("child_process");
 const { spawn } = require("child_process");
-let spawnChild;
+const cors = require("cors");
 
+let spawnChild;
 
 const PORT = process.env.PORT||4001;
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(router);
+
 const router = express.Router();
 
 router.get("/",(req,res)=>{
@@ -25,10 +31,6 @@ router.post("/send_message",(req,res)=>{
     res.send("Couldnt send it my dude")
   }
 });
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(router);
 
 function runScript(){
   return cp.spawn("python", ['-u',`helloworld.py`]);
