@@ -3,7 +3,6 @@ const bodyParser = require("body-parser")
 const http = require("http");
 const socketIo = require("socket.io");
 const cp = require("child_process");
-const { spawn } = require("child_process");
 const cors = require("cors");
 
 let spawnChild;
@@ -40,25 +39,25 @@ function runScript(){
 const server = http.createServer(app);
 const io = socketIo(server);
 
-let interval;
+//creates socket for web app
 io.on("connection", socket => {
+  //creates childprocess
   spawnChild = runScript();
   console.log("New client connected");
-  if (interval) {
-    clearInterval(interval);
-  }
+  //Listener for any new event from childprocess
   spawnChild.stdout.on('data', function(data) { 
     socket.emit("FromAPI", data.toString());
   });
+  //Listener for end of the childprocess
   spawnChild.on('end', function(data) { 
-    console.log("sup")
+    console.log("End of Program")
   });
+  //Listener for errors from childprocess
   spawnChild.stderr.setEncoding('utf-8');
   spawnChild.stderr.on('data', function (data) {
     socket.emit('process_data', data);
   });
-
-  // interval = setInterval(() => getApiAndEmit(socket), 10000);
+  //Waits for web app to disconnect
   socket.on("disconnect", () => {
     console.log("Client disconnected");
     spawnChild.kill('SIGINT')

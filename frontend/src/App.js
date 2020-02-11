@@ -14,6 +14,7 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  //when components mount create the socket between the server and webApp
   componentDidMount() {
     const { endpoint } = this.state;
     this.socket = socketIOClient(endpoint);
@@ -25,18 +26,9 @@ class App extends Component {
     this.socket.close();
   }
 
+  //handlesubmit is the function called when user submits response to output
   handleSubmit(event) {
     event.preventDefault();
-    // const data = new FormData(event.target);
-    // fetch('http://localhost:4001/send_message', {
-    //   headers: {
-    //     'Access-Control-Allow-Origin':'*'
-    //   },
-    //   credentials: "omit",
-    //   mode: "cors",
-    //   method: 'POST',
-    //   body: data.command
-    // });
     axios.post(`http://localhost:4001/send_message`, { send: this.state.value })
       .then(res => {
         console.log(res);
@@ -44,8 +36,8 @@ class App extends Component {
       })
   }
 
+  //handleChange is the function used to change the value of the input box
   handleChange(event) {
-
     this.setState({value: event.target.value})
   }
 
