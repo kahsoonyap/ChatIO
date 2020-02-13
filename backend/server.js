@@ -24,8 +24,8 @@ router.get("/",(req,res)=>{
 router.post("/send_message",(req,res)=>{
   try {
     console.log(req.body)
-    spawnChild.stdin.write(req.body.send+"\n"); 
-    res.send({process:"false"});  
+    spawnChild.stdin.write(req.body.send+"\n");
+    res.send({process:"false"});
   } catch (e) {
     console.log(e);
     res.send("Couldnt send it my dude")
@@ -35,22 +35,30 @@ router.post("/send_message",(req,res)=>{
 function runScript(){
   return cp.spawn("python", ['-u',`helloworld.py`]);
 }
+function rs(lang, file) {
+  console.log(lang);
+  console.log(file);
+  return cp.spawn(`${lang}`, ['-u',`${file}`]);
+}
 
 const server = http.createServer(app);
 const io = socketIo(server);
 
-//creates socket for web app
+const lang = process.argv[2];
+const file = process.argv[3];
+
+let interval;
 io.on("connection", socket => {
-  //creates childprocess
-  spawnChild = runScript();
   console.log("New client connected");
-  //Listener for any new event from childprocess
-  spawnChild.stdout.on('data', function(data) { 
+  spawnChild = rs(lang, file);
+  if (interval) {
+    clearInterval(interval);
+  }
+  spawnChild.stdout.on('data', function(data) {
     socket.emit("FromAPI", data.toString());
   });
-  //Listener for end of the childprocess
-  spawnChild.on('end', function(data) { 
-    console.log("End of Program")
+  spawnChild.on('end', function(data) {
+    console.log("sup")
   });
   //Listener for errors from childprocess
   spawnChild.stderr.setEncoding('utf-8');

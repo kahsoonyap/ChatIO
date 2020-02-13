@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import socketIOClient from "socket.io-client";
 import axios from 'axios'
+import MessageBubble from "./components/MessageBubble/MessageBubble";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      messages: [],
       response: false,
       value: "",
       endpoint: "http://127.0.0.1:4001"
@@ -18,8 +20,8 @@ class App extends Component {
   componentDidMount() {
     const { endpoint } = this.state;
     this.socket = socketIOClient(endpoint);
-    this.socket.on("FromAPI", data => this.setState({ response: data }));
-    this.socket.open()
+    this.socket.on("FromAPI", data => this.handleNewMessage(data, 1));
+    this.socket.open();
   }
 
   componentWillUnmount() {
@@ -29,11 +31,12 @@ class App extends Component {
   //handlesubmit is the function called when user submits response to output
   handleSubmit(event) {
     event.preventDefault();
+    this.handleNewMessage(this.state.value, 0);
     axios.post(`http://localhost:4001/send_message`, { send: this.state.value })
       .then(res => {
         console.log(res);
         console.log(res.data);
-      })
+      });
   }
 
   //handleChange is the function used to change the value of the input box
@@ -41,19 +44,29 @@ class App extends Component {
     this.setState({value: event.target.value})
   }
 
+  handleNewMessage(text, sender) {
+    this.setState({
+      messages: this.state.messages.concat([{
+        text:text,
+        type: sender
+      }])
+    });
+  }
+  
+
   render() {
-    const { response } = this.state;
-    console.log(response)
     return (
       <div>
-          <div style={{ textAlign: "center" }}>
+          {/*<div style={{ textAlign: "center" }}>
             {response
                 ? <p>
                   {response}
                 </p>
                 : <p>Loading...</p>}
-          </div>
+            </div> */}
           <div>
+            <MessageBubble messages = {this.state.messages} onNewMessage ={this.handleNewMessage}>
+            </MessageBubble>
             <form onSubmit={this.handleSubmit}>
               <input type="text" id="command" name="command" value={this.state.value} onChange={this.handleChange}/>
               <button type="submit">Send</button>
