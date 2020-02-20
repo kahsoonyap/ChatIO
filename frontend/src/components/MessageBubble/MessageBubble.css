@@ -39,7 +39,7 @@
   }
   
   .me {
-      background-color: #8f5db7;
+      background-color: #8e8e93;
       margin-left: 18px;
       margin-right:60px;
   }
@@ -47,11 +47,11 @@
   .me::before {
       box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
       left: -9px;
-      background-color: #8f5db7;
+      background-color: #8e8e93;
   }
   
   .you {
-      background-color: #087FFE;
+      background-color: #147efb;
       margin-left: 60px;
       margin-right:18px;
   }
@@ -59,7 +59,7 @@
   .you::before {
       box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
       right: -9px;
-      background-color: #087FFE;
+      background-color: #147efb;
   }
   
   .img-circle {

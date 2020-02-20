@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import socketIOClient from "socket.io-client";
 import axios from 'axios'
 import MessageBubble from "./components/MessageBubble/MessageBubble";
+import terminalIcon from "./images/terminal_icon.png";
+import userIcon from "./images/user_icon.png";
 
 class App extends Component {
   constructor() {
@@ -48,7 +50,8 @@ class App extends Component {
     this.setState({
       messages: this.state.messages.concat([{
         text:text,
-        type: sender
+        type: sender,
+        image: (sender === 0 ? userIcon : terminalIcon)
       }])
     });
   }
