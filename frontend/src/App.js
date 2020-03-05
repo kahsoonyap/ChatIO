@@ -39,6 +39,8 @@ class App extends Component {
         console.log(res);
         console.log(res.data);
       });
+      document.getElementById("command").value = ""; 
+      this.setState({value: ""});
   }
 
   //handleChange is the function used to change the value of the input box
