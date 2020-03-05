@@ -8,7 +8,7 @@ class MessageBubble extends Component {
   }
 
   getConversations(messages){
-    if(messages == undefined){
+    if(messages === undefined){
       return;
     }
 
@@ -22,7 +22,7 @@ class MessageBubble extends Component {
       }
       return (
               <div className={`bubble-container ${bubbleDirection}`} key={index}>
-                <img className={`img-circle`} src={message.image} />
+                <img className={`img-circle`} src={message.image} alt="avatar icon"/>
                 <div className={`bubble ${bubbleClass}`}>{message.text}</div>
               </div>
           );
@@ -33,10 +33,10 @@ class MessageBubble extends Component {
   handleSubmit = e => {
     e.preventDefault()
 
-    const {props: {onNewMessage}, state: {newMessage}} = this
+    const {props: {onNewMessage}, state: {newMessage}} = this;
 
     if(onNewMessage && newMessage) {
-      onNewMessage(newMessage)
+      onNewMessage(newMessage);
     }
 
     this.setState({
@@ -49,7 +49,7 @@ class MessageBubble extends Component {
   })
 
   render() {
-    const {props: {messages}, state: {newMessage}} = this;
+    const {props: {messages}} = this;
     const chatList = this.getConversations(messages);
 
     return (

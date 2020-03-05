@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import socketIOClient from "socket.io-client";
 import axios from 'axios'
 import MessageBubble from "./components/MessageBubble/MessageBubble";
+import terminalIcon from "./images/terminal_icon.png";
+import userIcon from "./images/user_icon.png";
 
 class App extends Component {
   constructor() {
@@ -37,6 +39,8 @@ class App extends Component {
         console.log(res);
         console.log(res.data);
       });
+      document.getElementById("command").value = ""; 
+      this.setState({value: ""});
   }
 
   //handleChange is the function used to change the value of the input box
@@ -48,7 +52,8 @@ class App extends Component {
     this.setState({
       messages: this.state.messages.concat([{
         text:text,
-        type: sender
+        type: sender,
+        image: (sender === 0 ? userIcon : terminalIcon)
       }])
     });
   }
@@ -56,23 +61,19 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-          {/*<div style={{ textAlign: "center" }}>
-            {response
-                ? <p>
-                  {response}
-                </p>
-                : <p>Loading...</p>}
-            </div> */}
-          <div>
-            <MessageBubble messages = {this.state.messages} onNewMessage ={this.handleNewMessage}>
-            </MessageBubble>
-            <form onSubmit={this.handleSubmit}>
+      <div id="chatContainer">
+          <MessageBubble 
+            messages = {this.state.messages}
+            onNewMessage ={this.handleNewMessage}>
+          </MessageBubble>
+
+          <div id="sendBar">
+            <form onSubmit={this.handleSubmit} id="form">
               <input type="text" id="command" name="command" value={this.state.value} onChange={this.handleChange}/>
-              <button type="submit">Send</button>
+              <button type="submit" id="submit">Submit</button>
             </form>
           </div>
-        </div>
+      </div>
     );
   }
 }
