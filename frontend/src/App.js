@@ -59,23 +59,19 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-          {/*<div style={{ textAlign: "center" }}>
-            {response
-                ? <p>
-                  {response}
-                </p>
-                : <p>Loading...</p>}
-            </div> */}
-          <div>
-            <MessageBubble messages = {this.state.messages} onNewMessage ={this.handleNewMessage}>
-            </MessageBubble>
-            <form onSubmit={this.handleSubmit}>
+      <div id="chatContainer">
+          <MessageBubble 
+            messages = {this.state.messages}
+            onNewMessage ={this.handleNewMessage}>
+          </MessageBubble>
+
+          <div id="sendBar">
+            <form onSubmit={this.handleSubmit} id="form">
               <input type="text" id="command" name="command" value={this.state.value} onChange={this.handleChange}/>
-              <button type="submit">Send</button>
+              <button type="submit" id="submit">Submit</button>
             </form>
           </div>
-        </div>
+      </div>
     );
   }
 }
