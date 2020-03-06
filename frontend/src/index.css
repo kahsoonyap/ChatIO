@@ -13,28 +13,43 @@ code {
 }
 
 #chatContainer {
-  max-width: 800px;
+  min-width: 500px;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
   margin: auto;
+  align-items: center;
 }
 
 #sendBar {
-  position:fixed;
-  left:0px;
+  
+  display: flex;
+  flex: 1;
   bottom:0px;
   height:50px;
-  width:100%;
+  min-width: 100%;
+  max-width: 700px;
 }
 
 #form {
-  width: 100%;
+  display: flex;
+  flex: 1;
 }
 
 #command {
+  display: flex;
+  flex: 1;
   border-style: solid;
   border-width: 2px;
   border-color: #E5E5EA;
   border-radius: 50px;
-  width: 85%;
   height: 30px;
   padding: 3px;
+}
+
+#submit {
+  background-color: #34C759;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
 }
