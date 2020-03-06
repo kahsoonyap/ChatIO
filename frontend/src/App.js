@@ -18,7 +18,8 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  //when components mount create the socket between the server and webApp
+
+  // When components mount create the socket between the server and webApp
   componentDidMount() {
     const { endpoint } = this.state;
     this.socket = socketIOClient(endpoint);
@@ -57,7 +58,6 @@ class App extends Component {
       }])
     });
   }
-  
 
   render() {
     return (
