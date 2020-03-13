@@ -67,12 +67,10 @@ class App extends Component {
             onNewMessage ={this.handleNewMessage}>
           </MessageBubble>
 
-          <div id="sendBar">
-            <form onSubmit={this.handleSubmit} id="form">
-              <input type="text" id="command" name="command" value={this.state.value} onChange={this.handleChange}/>
-              <button type="submit" id="submit">Submit</button>
-            </form>
-          </div>
+          <form onSubmit={this.handleSubmit} id="form">
+            <input type="text" id="command" name="command" value={this.state.value} onChange={this.handleChange}/>
+            <button type="submit" id="submit">Submit</button>
+          </form>
       </div>
     );
   }
