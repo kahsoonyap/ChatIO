@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server",
     "dev": "concurrently --kill-others \"npm run start\" \"(cd ../frontend && npm run start)\"",
-    "args": "run(){ concurrently --kill-others \"node server $1 $2\" \"(cd ../frontend && npm run start)\"; }; run"
+    "args": "run(){ concurrently --kill-others \"node server $1 $2\" \"(cd ../frontend && npm run start)\"; }; run",
+    "backend": "node server",
+    "frontend": "cd ../frontend && npm run start"
   },
   "keywords": [],
   "author": "",

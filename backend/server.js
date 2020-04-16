@@ -35,6 +35,7 @@ router.post("/send_message",(req,res)=>{
 function runScript(){
   return cp.spawn("python", ['-u',`helloworld.py`]);
 }
+
 function rs(lang, file) {
   console.log(lang);
   console.log(file);
@@ -46,11 +47,17 @@ const io = socketIo(server);
 
 const lang = process.argv[2];
 const file = process.argv[3];
+// let args = "";
+// if (process.argv.length > 4) {
+//   args = process.argv.slice(4, process.argv.length).join(" ");
+// }
 
 let interval;
 io.on("connection", socket => {
   console.log("New client connected");
   spawnChild = rs(lang, file);
+  // spawnChild = rs(lang, file, args);
+  // spawnChild = rs("python", "helloworld.py", args);
   if (interval) {
     clearInterval(interval);
   }

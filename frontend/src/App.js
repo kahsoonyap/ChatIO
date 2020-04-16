@@ -22,7 +22,11 @@ class App extends Component {
 
   // When components mount create the socket between the server and webApp
   componentDidMount() {
-    const { endpoint } = this.state;
+    const url =  window.location.href.slice(7,21)
+    const serverIP = url.concat("4001/")
+    console.log(serverIP)
+    this.setState({endpoint: serverIP})
+    const endpoint = serverIP
     this.socket = socketIOClient(endpoint);
     this.socket.on("FromAPI", data => this.handleNewMessage(data, 1));
     this.socket.open();
@@ -34,9 +38,12 @@ class App extends Component {
 
   //handlesubmit is the function called when user submits response to output
   handleSubmit(event) {
+    var htmlRequestUrl =this.state.endpoint.concat("send_message") 
+    htmlRequestUrl = "http://".concat(htmlRequestUrl)
     event.preventDefault();
     this.handleNewMessage(this.state.value, 0);
-    axios.post(`http://localhost:4001/send_message`, { send: this.state.value })
+    console.log(this.state.endpoint.concat("send_message"))
+    axios.post(htmlRequestUrl, { send: this.state.value })
       .then(res => {
         console.log(res);
         console.log(res.data);
