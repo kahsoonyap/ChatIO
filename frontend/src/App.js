@@ -4,6 +4,7 @@ import axios from 'axios'
 import MessageBubble from "./components/MessageBubble/MessageBubble";
 import terminalIcon from "./images/terminal_icon.png";
 import userIcon from "./images/user_icon.png";
+import errorIcon from "./images/error_icon.png"
 
 class App extends Component {
   constructor() {
@@ -54,7 +55,8 @@ class App extends Component {
       messages: this.state.messages.concat([{
         text:text,
         type: sender,
-        image: (sender === 0 ? userIcon : terminalIcon)
+        image: (sender === 0 ? userIcon : (
+          sender === 1 ? terminalIcon : errorIcon))
       }])
     });
   }
