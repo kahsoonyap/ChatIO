@@ -22,8 +22,10 @@ class App extends Component {
 
   // When components mount create the socket between the server and webApp
   componentDidMount() {
-    const url =  window.location.href.slice(7,21)
-    const serverIP = url.concat("4001/")
+    console.log(window.location.href);
+    const url =  window.location.href.split(':')[1].split('/').join('')
+    console.log(url);
+    const serverIP = url.concat(":4001/")
     console.log(serverIP)
     this.setState({endpoint: serverIP})
     const endpoint = serverIP
