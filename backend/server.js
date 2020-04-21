@@ -14,7 +14,7 @@ const router = express.Router();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(router);
 
 router.get("/",(req,res)=>{
