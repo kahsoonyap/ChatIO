@@ -58,6 +58,8 @@ io.on("connection", socket => {
   spawnChild = rs(lang, file);
   // spawnChild = rs(lang, file, args);
   // spawnChild = rs("python", "helloworld.py", args);
+  socket.emit("StartEnd", file.toString());
+
   if (interval) {
     clearInterval(interval);
   }
@@ -65,7 +67,7 @@ io.on("connection", socket => {
     socket.emit("FromAPI", data.toString());
   });
   spawnChild.on('end', function(data) {
-    console.log("sup")
+    console.log("Ended");
   });
   //Listener for errors from childprocess
   spawnChild.stderr.setEncoding('utf-8');
@@ -75,6 +77,7 @@ io.on("connection", socket => {
   //Waits for web app to disconnect
   socket.on("disconnect", () => {
     console.log("Client disconnected");
+    socket.emit("StartEnd", "Program terminated.");
     spawnChild.kill('SIGINT')
   });
 });

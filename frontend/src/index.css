@@ -1,3 +1,7 @@
+html{
+  height: 100%
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 code {
@@ -13,22 +18,23 @@ code {
 }
 
 #chatContainer {
+  background-color: white;
+  border-radius: 50px;
+  height: 100%;
   min-width: 500px;
   max-width: 700px;
   display: flex;
   flex-direction: column;
   margin: auto;
-  align-items: center;
-  padding-bottom: 35px;
+  padding-left: 5px;
 }
 
 #form {
   min-width: 600px;
-  max-width: 700px;
+  max-width: 690px;
   display: flex;
-  position: fixed;
   flex: 1 1 auto;
-  bottom: 0px;
+  bottom: 5px;
 }
 
 #command {
@@ -48,4 +54,21 @@ code {
   color: white;
   border-radius: 20px;
   padding: 10px;
+  height: 56%;
+}
+
+#root {
+  background-color: RGB(199, 199, 204);
+  height: 100%;
+}
+
+#chatPad {
+  height: 95%;
+  padding: 10px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

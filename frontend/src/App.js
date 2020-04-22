@@ -5,6 +5,7 @@ import MessageBubble from "./components/MessageBubble/MessageBubble";
 import terminalIcon from "./images/terminal_icon.png";
 import userIcon from "./images/user_icon.png";
 import errorIcon from "./images/error_icon.png"
+import waveIcon from "./images/wave.png"
 
 class App extends Component {
   constructor() {
@@ -31,6 +32,8 @@ class App extends Component {
     const endpoint = serverIP
     this.socket = socketIOClient(endpoint);
     this.socket.on("FromAPI", data => this.handleNewMessage(data, 1));
+    this.socket.on("process_data", data => this.handleNewMessage(data, 2));
+    this.socket.on("StartEnd", data => this.handleNewMessage(data, 3));
     this.socket.open();
   }
 
@@ -60,18 +63,34 @@ class App extends Component {
   }
 
   handleNewMessage(text, sender) {
+    var curIcon;
+    switch(sender) {
+      case 0:
+        curIcon = userIcon;
+        break;
+      case 1:
+        curIcon = terminalIcon;
+        break;
+      case 2:
+        curIcon = errorIcon;
+        break;
+      case 3: 
+        curIcon = waveIcon;
+        break;
+    }
+
     this.setState({
       messages: this.state.messages.concat([{
         text:text,
         type: sender,
-        image: (sender === 0 ? userIcon : (
-          sender === 1 ? terminalIcon : errorIcon))
+        image: curIcon
       }])
     });
   }
 
   render() {
     return (
+      <div  id="chatPad">
       <div id="chatContainer">
           <MessageBubble 
             messages = {this.state.messages}
@@ -82,6 +101,7 @@ class App extends Component {
             <input type="text" id="command" name="command" value={this.state.value} onChange={this.handleChange}/>
             <button type="submit" id="submit">Submit</button>
           </form>
+      </div>
       </div>
     );
   }
