@@ -79,6 +79,9 @@ class App extends Component {
         break;
     }
 
+    // Remove trailing whitespace
+    text = text.trim();
+
     this.setState({
       messages: this.state.messages.concat([{
         text:text,
@@ -99,7 +102,7 @@ class App extends Component {
 
           <form onSubmit={this.handleSubmit} id="form">
             <input type="text" id="command" name="command" value={this.state.value} onChange={this.handleChange}/>
-            <button type="submit" id="submit">Submit</button>
+            <button type="submit" id="submit">Send</button>
           </form>
       </div>
       </div>

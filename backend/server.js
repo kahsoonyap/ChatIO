@@ -58,7 +58,7 @@ io.on("connection", socket => {
   spawnChild = rs(lang, file);
   // spawnChild = rs(lang, file, args);
   // spawnChild = rs("python", "helloworld.py", args);
-  socket.emit("StartEnd", file.toString());
+  socket.emit("StartEnd", lang.toString() + ": " + file.toString());
 
   if (interval) {
     clearInterval(interval);

@@ -31,7 +31,7 @@ code {
 
 #form {
   min-width: 600px;
-  max-width: 690px;
+  max-width: 680px;
   display: flex;
   flex: 1 1 auto;
   bottom: 5px;
@@ -52,13 +52,14 @@ code {
 #submit {
   background-color: #34C759;
   color: white;
-  border-radius: 20px;
-  padding: 10px;
+  border-radius: 50px;
+  padding: 12px;
   height: 56%;
+  border: 0;
 }
 
 #root {
-  background-color: RGB(199, 199, 204);
+  background-color: RGB(44, 44, 46);
   height: 100%;
 }
 
