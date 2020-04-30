@@ -10,7 +10,7 @@ ChatIO is a student-friendly interface for interacting with the command line.
     Use the full url given the cmd window the to access remotely ex:"http://127.0.0.1:3000"
 5.  Close both the cmd window and the nodejs
 
-## Running file via command
+## Running file via cmd
 1. Navigate to the root folder of ChatIO
 2. Know the path to the file you want to run
 3. Type `chatio.bat` then press enter and follow the prompts given
