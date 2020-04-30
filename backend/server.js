@@ -58,7 +58,7 @@ io.on("connection", socket => {
   spawnChild = rs(lang, file);
   // spawnChild = rs(lang, file, args);
   // spawnChild = rs("python", "helloworld.py", args);
-  socket.emit("StartEnd", lang.toString() + ": " + file.toString());
+  socket.emit("StartEnd", "Language: " + lang.toString() + " | File: " + file.toString());
 
   if (interval) {
     clearInterval(interval);
@@ -67,7 +67,7 @@ io.on("connection", socket => {
     socket.emit("FromAPI", data.toString());
   });
   spawnChild.stdout.on('end', () => {
-    socket.emit("FromAPI", {Ended: true});
+    socket.emit("StartEnd", "Program " + file.toString() + " terminated.");
   });
   //Listener for errors from childprocess
   spawnChild.stderr.setEncoding('utf-8');

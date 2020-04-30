@@ -81,7 +81,9 @@ class App extends Component {
     }
 
     // Remove trailing whitespace
-    text = text.trim();
+    if (typeof text === "string") {
+      text = text.trim();
+    }
 
     this.setState({
       messages: this.state.messages.concat([{
