@@ -27,7 +27,7 @@ class MessageBubble extends Component {
 
       return (
           <div className={`bubble-container ${bubbleDirection}`} key={index}>
-            <img className={`img-circle`} src={message.image} alt="avatar icon"/>
+            <img className={`img-circle`} src={message.image}/>
             <div className={`${bubbleClass}`}>
             {message.text.split('\n').map((line) =>
               <div>{line} <br /></div> )}
