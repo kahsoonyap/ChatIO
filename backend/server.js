@@ -66,8 +66,8 @@ io.on("connection", socket => {
   spawnChild.stdout.on('data', function(data) {
     socket.emit("FromAPI", data.toString());
   });
-  spawnChild.on('end', function(data) {
-    console.log("Ended");
+  spawnChild.stdout.on('end', () => {
+    socket.emit("FromAPI", {Ended: true});
   });
   //Listener for errors from childprocess
   spawnChild.stderr.setEncoding('utf-8');

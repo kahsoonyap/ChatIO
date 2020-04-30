@@ -64,6 +64,7 @@ class App extends Component {
 
   handleNewMessage(text, sender) {
     var curIcon;
+    // eslint-disable-next-line
     switch(sender) {
       case 0:
         curIcon = userIcon;
