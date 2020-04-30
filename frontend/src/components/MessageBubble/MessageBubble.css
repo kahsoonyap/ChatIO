@@ -14,7 +14,6 @@
   .bubble{
       background-color: #F2F2F2;
       border-radius: 15px;
-      /*box-shadow: 0 0 6px #B2B2B2;*/
       display: block;
       padding: 10px 18px;
       position: relative;
@@ -46,7 +45,6 @@
   }
   
   .me::before {
-      /*box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );*/
       left: -9px;
       background-color: #E5E5EA;
   }
@@ -58,9 +56,17 @@
   }
   
   .you::before {
-      /*box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );*/
       right: -9px;
       background-color: #0B93F6;
+  }
+
+  .hiBye {
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1em;
+    text-decoration: underline;
+    text-underline-position: under;
   }
   
   .img-circle {

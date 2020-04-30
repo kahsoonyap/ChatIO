@@ -84,7 +84,7 @@ class App extends Component {
 
     this.setState({
       messages: this.state.messages.concat([{
-        text:text,
+        text: text,
         type: sender,
         image: curIcon
       }])
@@ -93,7 +93,7 @@ class App extends Component {
 
   render() {
     return (
-      <div  id="chatPad">
+      <div id="chatPad">
       <div id="chatContainer">
           <MessageBubble 
             messages = {this.state.messages}
