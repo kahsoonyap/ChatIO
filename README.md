@@ -14,13 +14,13 @@ ChatIO is a student-friendly interface for interacting with the command line.
 1. Navigate to the root folder of ChatIO
 2. Know the path to the file you want to run
 3. Type `chatio.bat` then press enter and follow the prompts given
-4. Optionally you can skip the prompts by providing the information at the time of launch
-# ex. `chatio.bat python helloworld.py`
+4. Optionally you can skip the prompts by providing the information at the time of launch  
+ex. `chatio.bat python helloworld.py`
 
 ## Where to place the file
 Place the file in the root of ChatIO (the same directory as me!)
-If you would like to use a file from a different directory, just type in the relative path from here.
-# ex.
+If you would like to use a file from a different directory, just type in the relative path from here.  
+ex.
 File structure
 
 ChatIO
