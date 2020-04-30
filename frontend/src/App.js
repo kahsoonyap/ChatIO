@@ -5,7 +5,7 @@ import MessageBubble from "./components/MessageBubble/MessageBubble";
 import terminalIcon from "./images/terminal_icon.png";
 import userIcon from "./images/user_icon.png";
 import errorIcon from "./images/error_icon.png"
-import waveIcon from "./images/wave.png"
+import blankIcon from "./images/blank.png"
 
 class App extends Component {
   constructor() {
@@ -76,7 +76,7 @@ class App extends Component {
         curIcon = errorIcon;
         break;
       case 3: 
-        curIcon = waveIcon;
+        curIcon = blankIcon;
         break;
     }
 
@@ -85,7 +85,7 @@ class App extends Component {
 
     this.setState({
       messages: this.state.messages.concat([{
-        text:text,
+        text: text,
         type: sender,
         image: curIcon
       }])
@@ -94,7 +94,7 @@ class App extends Component {
 
   render() {
     return (
-      <div  id="chatPad">
+      <div id="chatPad">
       <div id="chatContainer">
           <MessageBubble 
             messages = {this.state.messages}

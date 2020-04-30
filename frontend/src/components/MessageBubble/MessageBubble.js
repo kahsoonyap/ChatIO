@@ -13,22 +13,27 @@ class MessageBubble extends Component {
     }
 
     const listItems = messages.map((message, index) => {
-      let bubbleClass = 'me';
+      let bubbleClass = 'bubble me';
       let bubbleDirection = '';
 
-      if(message.type === 0){
-        bubbleClass = 'you';
+      if(message.type === 0) {
+        bubbleClass = 'bubble you';
         bubbleDirection = "bubble-direction-reverse";
       }
+
+      if(message.type === 3) {
+        bubbleClass = "hiBye";
+      }
+
       return (
-              <div className={`bubble-container ${bubbleDirection}`} key={index}>
-                <img className={`img-circle`} src={message.image} alt="avatar icon"/>
-                <div className={`bubble ${bubbleClass}`}>
-                {message.text.split('\n').map((line) =>
-                  <div>{line} <br /></div> )}
-                </div>
-              </div>
-          );
+          <div className={`bubble-container ${bubbleDirection}`} key={index}>
+            <img className={`img-circle`} src={message.image}/>
+            <div className={`${bubbleClass}`}>
+            {message.text.split('\n').map((line) =>
+              <div>{line} <br /></div> )}
+            </div>
+          </div>
+      );
     });
     return listItems;
   }
